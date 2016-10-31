@@ -1,0 +1,52 @@
+﻿@model Fiap.Exemplo01.MVC.Web.Models.Cliente
+@{
+    ViewBag.Title = "Cadastrar";
+}
+
+<h2>Cadastrar Cliente</h2>
+
+@if (TempData["msg"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["msg"]
+    </div>
+}
+
+@using (Html.BeginForm())
+
+
+
+
+{
+    <div class="form-group">
+        @Html.LabelFor(c => c.Nome, labelText: "Nome")
+        @Html.TextBoxFor(c => c.Nome, new { placeholder = "Digite seu nome", @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(c => c.Idade, labelText: "Idade")
+        @Html.TextBoxFor(c => c.Idade, new { placeholder = "Digite sua Idade", @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(c => c.Credito, labelText: "Crédito")
+        @Html.TextBoxFor(c => c.Credito, new { placeholder = "R$ 9999,99", @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(c => c.NecessidadesEspeciais)<br />
+        @Html.CheckBoxFor(c => c.NecessidadesEspeciais, new { @class = "checkbox checkbox-inline" })Sim   
+            
+
+    </div>
+    <div class="form-group" >
+        @Html.LabelFor(c => c.DataNascimento)
+        @Html.TextBoxFor(c => c.DataNascimento, new { placeholder = "DD/MM/AAAA", @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(c => c.EstadoCivil)
+        @Html.DropDownListFor(c => c.EstadoCivil,ViewBag.EstadoCivil as SelectList, new { @class = "form-control" })
+    </div>
+    <div class="form-group " >
+        <input type="submit" value="Salvar" class="btn btn-primary" />
+    </div>
+
+
+}
