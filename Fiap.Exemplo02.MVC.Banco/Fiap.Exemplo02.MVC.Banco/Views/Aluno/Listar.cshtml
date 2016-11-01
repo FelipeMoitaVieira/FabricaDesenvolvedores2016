@@ -1,0 +1,38 @@
+﻿@model List<Fiap.Exemplo02.MVC.Banco.Models.Aluno>
+@{
+    ViewBag.Title = "Listar";
+}
+
+<h2>Listar</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+
+            <th>Nome</th>
+            <th>Bolsista</th>
+            <th>Desconto</th>
+            <th>Data de Nascimento</th>
+            
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var aluno in Model)
+
+
+        {
+            <tr>
+                <td>@aluno.Nome</td>
+                <td>@aluno.Bolsa</td>
+                <td>@aluno.Desconto</td>
+                <td>@aluno.DataNascimento</td>
+               
+
+            </tr>
+        }
+
+
+    </tbody>
+
+</table>
