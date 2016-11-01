@@ -10,7 +10,7 @@ namespace Fiap.Exemplo01.MVC.Web.Controllers
     public class ClienteController : Controller
     {
         private static List<Cliente> _lista = new List<Cliente>();
-        private static List<string> _listaOpcao = new List<string>() {"","Solteiro","Casado","Divorciado","Separado Judicialmente","Viúvo" };
+        private static List<string> _listaOpcao = new List<string>() {"Solteiro","Casado","Divorciado","Separado Judicialmente","Viúvo" };
         
 
         [HttpGet]
