@@ -34,5 +34,21 @@ namespace Fiap.Exemplo02.MVC.Banco.Controllers
             return View(_lista);
         }
         
+        public ActionResult Excluir(int id)
+        {
+            Aluno aluno = _contexto.Alunoes.Find(id);
+            _contexto.Alunoes.Remove(aluno);
+            _contexto.SaveChanges();
+
+            return RedirectToAction("Listar");
+        }
+
+        public ActionResult Editar(int id)
+        {
+            Aluno aluno = _contexto.Alunoes.Find(id);
+            
+            return RedirectToAction("Cadastrar", aluno);
+        }
+        
     }
 }
