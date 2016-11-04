@@ -10,6 +10,7 @@ namespace Fiap.Exemplo02.MVC.Banco.Controllers
     public class AlunoController : Controller
     {
         private PortalContent _context = new PortalContent();
+
         [HttpGet]
         public ActionResult Cadastrar()
         {
@@ -36,16 +37,16 @@ namespace Fiap.Exemplo02.MVC.Banco.Controllers
         
         public ActionResult Excluir(int id)
         {
-            Aluno aluno = _contexto.Alunoes.Find(id);
-            _contexto.Alunoes.Remove(aluno);
-            _contexto.SaveChanges();
+            Aluno aluno = _context.Aluno.Find(id);
+            _context.Aluno.Remove(aluno);
+            _context.SaveChanges();
 
             return RedirectToAction("Listar");
         }
 
         public ActionResult Editar(int id)
         {
-            Aluno aluno = _contexto.Alunoes.Find(id);
+            Aluno aluno = _context.Aluno.Find(id);
             
             return RedirectToAction("Cadastrar", aluno);
         }
