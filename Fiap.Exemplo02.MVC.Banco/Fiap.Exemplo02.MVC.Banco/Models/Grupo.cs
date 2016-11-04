@@ -12,12 +12,12 @@ namespace Fiap.Exemplo02.MVC.Banco.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Aluno
+    public partial class Grupo
     {
         public int Id { get; set; }
         public string Nome { get; set; }
-        public System.DateTime DataNascimento { get; set; }
-        public bool Bolsa { get; set; }
-        public Nullable<double> Desconto { get; set; }
+        public Nullable<double> Nota { get; set; }
+    
+        public virtual Projeto Projeto { get; set; }
     }
 }

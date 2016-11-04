@@ -26,5 +26,7 @@ namespace Fiap.Exemplo02.MVC.Banco.Models
         }
     
         public virtual DbSet<Aluno> Aluno { get; set; }
+        public virtual DbSet<Grupo> Grupo { get; set; }
+        public virtual DbSet<Projeto> Projeto { get; set; }
     }
 }

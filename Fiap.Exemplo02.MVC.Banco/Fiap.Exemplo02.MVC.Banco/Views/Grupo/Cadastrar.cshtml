@@ -1,0 +1,50 @@
+﻿@model Fiap.Exemplo02.MVC.Banco.Models.Grupo
+@{
+    ViewBag.Title = "Cadastrar";
+}
+
+<h2>Cadastrar Grupo</h2>
+@Helper.Message(TempData["msg"],"alert alert-success")
+
+@using (Html.BeginForm())
+{
+    <div class="form-group">
+        @Html.LabelFor(g => g.Nome)
+        @Html.TextBoxFor(g => g.Nome, new { @class="form-control", placeholder="Digite o nome do grupo"})
+    </div>
+
+    
+    <h3>Projeto</h3>
+
+    <div class="form-group">
+        @Html.LabelFor(g => g.Projeto.Nome)
+        @Html.TextBoxFor(g => g.Projeto.Nome, new { @class = "form-control", placeholder = "Digite o nome do projeto" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(g => g.Projeto.Descricao)
+        @Html.TextBoxFor(g => g.Projeto.Descricao, new { @class = "form-control", placeholder = "Digite a descrição do projeto" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(g => g.Projeto.DataInicio)
+        @Html.TextBoxFor(g => g.Projeto.DataInicio, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(g => g.Projeto.DataTermino)
+        @Html.TextBoxFor(g => g.Projeto.DataTermino, new { @class = "form-control" })
+    </div>
+
+    <div class="form-inline">
+        @Html.LabelFor(g => g.Projeto.Entregue)
+        @Html.CheckBoxFor(g => g.Projeto.Entregue, new { @class = "checkbox " })
+       
+    </div>
+
+    <div class="form-group">
+        @Helper.Submit("Salvar","btn btn-primary")
+    </div>
+
+    
+}

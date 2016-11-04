@@ -1,0 +1,27 @@
+﻿@model List<Fiap.Exemplo02.MVC.Banco.Models.Grupo>
+@{
+    ViewBag.Title = "Listar";
+}
+
+<h2>Listar</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Nome Grupo</th>
+            <th>Nome Projeto</th>
+            <th>Descrição</th>
+            <th>Data de Início</th>
+            <th>Data de Término</th>
+            <th>Entregue</th>
+        </tr>
+    </thead>
+
+    @foreach(var grupo in Model)
+    {
+        <tr>
+            <td></td>
+        </tr>
+    }
+
+</table> 
