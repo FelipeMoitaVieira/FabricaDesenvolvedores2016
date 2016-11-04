@@ -63,6 +63,16 @@ namespace Fiap.Exemplo02.MVC.Banco.Controllers
             TempData["msg"] = "Aluno Atualizado";
             return RedirectToAction("Listar");
         }
+
+
+        [HttpGet]
+        public ActionResult Buscar(string nomeBusca)
+        {
+            var lista = _context.Aluno.Where(a => a.Nome.Contains(nomeBusca)).ToList();
+            
+
+            return View("Listar",lista);
+        }
         
     }
 }

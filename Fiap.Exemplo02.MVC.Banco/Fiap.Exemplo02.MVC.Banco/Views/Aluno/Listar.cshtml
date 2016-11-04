@@ -7,6 +7,15 @@
 
 @Helper.Message(TempData["msg"], "alert alert-success")
 
+@using (Html.BeginForm("Buscar","Aluno",FormMethod.Get, new {@class="form-inline" }))
+{
+    <h4>Filtrar por Nome</h4>
+    <div class="form-group">
+        @Html.TextBox("nomeBusca", "", new { @class = "form-control" })
+        @Helper.Submit("Buscar", "btn btn-primary")
+    </div>
+}
+
 <table class="table table-striped">
     <thead>
         <tr>
