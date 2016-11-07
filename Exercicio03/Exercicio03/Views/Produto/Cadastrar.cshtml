@@ -1,0 +1,42 @@
+﻿@model Exercicio03.Models.Produto
+@{
+    ViewBag.Title = "Cadastrar";
+}
+
+<h2>Cadastrar</h2>
+
+@Helper.Message(TempData["msg"],"alert alert-success")
+
+@using (Html.BeginForm())
+{
+    <div class="form-group">
+        @Html.LabelFor(p => p.Titulo)
+        @Html.TextBoxFor(p => p.Titulo, new {@class="form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(p => p.Valor)
+        @Html.TextBoxFor(p => p.Valor, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(p => p.DataCadastro)
+        @Html.TextBoxFor(p => p.DataCadastro, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(p => p.Descricao)
+        @Html.TextAreaFor(p => p.Descricao, new { @class = "form-control" })
+    </div>
+
+    <div class="form-inline">
+        
+        @Html.CheckBoxFor(p => p.Nacional, new { @class = "checkbox" }) 
+        @Html.LabelFor(p => p.Nacional)
+    </div>
+
+    <div class="form-group">
+        @Helper.Submit("Salvar","btn btn-primary")
+    </div>
+
+}

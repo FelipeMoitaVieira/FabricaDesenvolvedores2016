@@ -1,0 +1,36 @@
+﻿@model List<Exercicio03.Models.Produto>
+@{
+    ViewBag.Title = "Listar";
+}
+
+<h2>Listar</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Título</th>
+            <th>Descrição</th>
+            <th>Data de Cadastro</th>
+            <th>Valor</th>
+            <th>Nacional</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var produto in Model)
+        {
+        <tr>
+            <td>@produto.Titulo</td>
+            <td>@produto.Descricao</td>
+            <td>@produto.DataCadastro</td>
+            <td>@produto.Valor</td>
+            @if (produto.Nacional == true)
+            { <td>Sim</td>}
+             else { <td>Não</td>}
+        </tr>
+        }
+    </tbody>
+
+
+
+
+</table> 
