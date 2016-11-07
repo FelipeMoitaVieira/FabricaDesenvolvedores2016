@@ -4,9 +4,11 @@
 }
 
 <h2>Atualizar Aluno</h2>
+@Helper.Message(TempData["msg"], "alert alert-success")
 
 @using (Html.BeginForm())
 {   
+    
     @Html.HiddenFor(a => a.Id)
 
     <div class="form-group">

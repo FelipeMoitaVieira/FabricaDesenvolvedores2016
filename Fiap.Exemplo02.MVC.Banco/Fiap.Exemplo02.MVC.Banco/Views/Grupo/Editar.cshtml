@@ -1,29 +1,34 @@
 ﻿@model Fiap.Exemplo02.MVC.Banco.Models.Grupo
 @{
-    ViewBag.Title = "Cadastrar";
+    ViewBag.Title = "Editar";
 }
 
-<h2>Cadastrar Grupo</h2>
+<h2>Atualizar Grupo</h2>
+
 @Helper.Message(TempData["msg"],"alert alert-success")
 
 @using (Html.BeginForm())
 {
+    @Html.HiddenFor(g => g.Projeto.Id)
+    @Html.HiddenFor(g => g.Id)
+    
+
     <div class="form-group">
         @Html.LabelFor(g => g.Nome)
-        @Html.TextBoxFor(g => g.Nome, new { @class="form-control", placeholder="Digite o nome do grupo"})
+        @Html.TextBoxFor(g => g.Nome, new { @class = "form-control"})
     </div>
 
-    
-    <h3>Projeto</h3>
+
+    <h3>Atualizar Projeto</h3>
 
     <div class="form-group">
-        @Html.LabelFor(g => g.Projeto.Nome)
-        @Html.TextBoxFor(g => g.Projeto.Nome, new { @class = "form-control", placeholder = "Digite o nome do projeto" })
+        @Html.LabelFor(p => p.Projeto.Nome)
+        @Html.TextBoxFor(p => p.Projeto.Nome, new { @class = "form-control"})
     </div>
 
     <div class="form-group">
         @Html.LabelFor(g => g.Projeto.Descricao)
-        @Html.TextBoxFor(g => g.Projeto.Descricao, new { @class = "form-control", placeholder = "Digite a descrição do projeto" })
+        @Html.TextBoxFor(g => g.Projeto.Descricao, new { @class = "form-control" })
     </div>
 
     <div class="form-group">
@@ -39,12 +44,10 @@
     <div class="form-inline">
         @Html.LabelFor(g => g.Projeto.Entregue)
         @Html.CheckBoxFor(g => g.Projeto.Entregue, new { @class = "checkbox " })
-       
+
     </div>
 
     <div class="form-group">
-        @Helper.Submit("Salvar", "btn btn-primary")
+        @Helper.Submit("Atualizar", "btn btn-primary")
     </div>
-
-    
 }

@@ -4,6 +4,7 @@
 }
 
 <h2>Listar</h2>
+@Helper.Message(TempData["msg"],"alert alert-success")
 
 <table class="table table-striped">
     <thead>
@@ -14,14 +15,58 @@
             <th>Data de Início</th>
             <th>Data de Término</th>
             <th>Entregue</th>
+            <th></th>
         </tr>
     </thead>
+    <tbody>
+        @foreach (var grupo in Model)
+        {
+            <tr>
+                <td>@grupo.Nome</td>
+                <td>@grupo.Projeto.Nome</td>
+                <td>@grupo.Projeto.Descricao</td>
+                <td>@grupo.Projeto.DataInicio</td>
+                <td>@grupo.Projeto.DataTermino</td>
+                @if(grupo.Projeto.Entregue == true)
+                {
+                    <td>Sim</td>
+                }
+                else
+                {
+                    <td>Não</td>
+                }
+                <td>@Html.ActionLink("Editar","Editar", new {id= @grupo.Id }, new {@class="btn btn-warning" })
+                    <button onclick="idGrupo.value = @grupo.Id"  type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">
+                        Excluir
+                    </button>
+                
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
 
-    @foreach(var grupo in Model)
-    {
-        <tr>
-            <td></td>
-        </tr>
-    }
 
-</table> 
+
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Confirmação</h4>
+            </div>
+            <div class="modal-body">
+                Deseja realmente apagar o Grupo?
+            </div>
+            <div class="modal-footer">
+                @using (Html.BeginForm("Excluir", "Grupo"))
+                {
+                    <input type="hidden" id="idGrupo" name="grupoId" />
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Não</button>
+                    <button type="submit" class="btn btn-danger">Sim</button>
+                }
+            </div>
+        </div>
+    </div>
+</div> 
