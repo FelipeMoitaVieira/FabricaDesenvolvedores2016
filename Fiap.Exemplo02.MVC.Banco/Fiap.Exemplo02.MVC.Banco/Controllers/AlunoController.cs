@@ -14,6 +14,8 @@ namespace Fiap.Exemplo02.MVC.Banco.Controllers
         [HttpGet]
         public ActionResult Cadastrar()
         {
+            var lista = _context.Grupo.ToList();
+            ViewBag.grupos = new SelectList(lista, "Id", "Nome");
             return View();
         }
 
@@ -31,6 +33,8 @@ namespace Fiap.Exemplo02.MVC.Banco.Controllers
         [HttpGet]
         public ActionResult Listar()
         {
+            // include -> busca o relacionamento (preenche o grupo que o aluno possui), faz o join
+            //var lista = _context.Aluno.Include("Grupo").ToList();
             List<Aluno> _lista = _context.Aluno.ToList();
             return View(_lista);
         }
