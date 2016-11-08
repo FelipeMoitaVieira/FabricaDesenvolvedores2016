@@ -4,17 +4,19 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Fiap.Exemplo02.MVC.Banco.Models;
+using Fiap.Exemplo02.MVC.Banco.UnitsOfWork;
 
 namespace Fiap.Exemplo02.MVC.Banco.Controllers
 {
     public class AlunoController : Controller
     {
-        private PortalContent _context = new PortalContent();
+        //private PortalContent _context = new PortalContent();
+        private UnitOfWork _unit = new UnitOfWork();
 
         [HttpGet]
         public ActionResult Cadastrar()
         {
-            var lista = _context.Grupo.ToList();
+            var lista = _unit.GrupoRespository.Listar();
             ViewBag.grupos = new SelectList(lista, "Id", "Nome");
             return View();
         }
@@ -24,8 +26,8 @@ namespace Fiap.Exemplo02.MVC.Banco.Controllers
         {
             
             
-            _context.Aluno.Add(aluno);
-            _context.SaveChanges();
+            _unit.AlunoRepository.Cadastrar(aluno);
+            _unit.Salvar();
             TempData["msg"] = "Aluno Cadastrado";
             return RedirectToAction("Cadastrar");
         }
@@ -35,7 +37,7 @@ namespace Fiap.Exemplo02.MVC.Banco.Controllers
         {
             // include -> busca o relacionamento (preenche o grupo que o aluno possui), faz o join
             //var lista = _context.Aluno.Include("Grupo").ToList();
-            List<Aluno> _lista = _context.Aluno.ToList();
+            var _lista = _unit.AlunoRepository.Listar();
             return View(_lista);
         }
 
@@ -43,9 +45,8 @@ namespace Fiap.Exemplo02.MVC.Banco.Controllers
         [HttpPost]
         public ActionResult Excluir(int alunoId)
         {
-            Aluno aluno = _context.Aluno.Find(alunoId);
-            _context.Aluno.Remove(aluno);
-            _context.SaveChanges();
+            _unit.AlunoRepository.Remover(alunoId);
+            _unit.Salvar();
             TempData["msg"] = "Aluno Excluído";
             return RedirectToAction("Listar");
         }
@@ -54,7 +55,7 @@ namespace Fiap.Exemplo02.MVC.Banco.Controllers
         [HttpGet]
         public ActionResult Editar(int id)
         {
-            Aluno aluno = _context.Aluno.Find(id);
+            Aluno aluno = _unit.AlunoRepository.BuscarPorId(id);
             
             return View("Editar", aluno);
         }
@@ -62,8 +63,8 @@ namespace Fiap.Exemplo02.MVC.Banco.Controllers
         [HttpPost]
         public ActionResult Editar(Aluno aluno)
         {
-            _context.Entry(aluno).State = System.Data.Entity.EntityState.Modified;
-            _context.SaveChanges();
+            _unit.AlunoRepository.Atualizar(aluno);
+            _unit.Salvar();
             TempData["msg"] = "Aluno Atualizado";
             return RedirectToAction("Listar");
         }
@@ -72,11 +73,18 @@ namespace Fiap.Exemplo02.MVC.Banco.Controllers
         [HttpGet]
         public ActionResult Buscar(string nomeBusca)
         {
-            var lista = _context.Aluno.Where(a => a.Nome.Contains(nomeBusca)).ToList();
+            var lista = _unit.AlunoRepository.BuscarPor(a => a.Nome == nomeBusca);
             
 
             return View("Listar",lista);
         }
-        
+
+
+        protected override void Dispose(bool disposing)
+        {
+            _unit.Dispose();
+            base.Dispose(disposing);
+        }
+
     }
 }
