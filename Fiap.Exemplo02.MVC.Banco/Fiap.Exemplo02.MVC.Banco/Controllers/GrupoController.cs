@@ -49,9 +49,10 @@ namespace Fiap.Exemplo02.MVC.Banco.Controllers
         }
 
         [HttpPost]
-        public ActionResult Editar(Grupo gp)
+        public ActionResult Editar(Grupo grupo)
         {
-            _context.Entry(gp).State = System.Data.Entity.EntityState.Modified;
+            _context.Entry(grupo).State = System.Data.Entity.EntityState.Modified;
+            _context.Entry(grupo.Projeto).State = System.Data.Entity.EntityState.Modified;
             _context.SaveChanges();
             TempData["msg"] = "Grupo Atualizado com Sucesso!";
 
