@@ -13,10 +13,10 @@ namespace Fiap.Exemplo02.MVC.Banco.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class PortalContent : DbContext
+    public partial class PortalContext : DbContext
     {
-        public PortalContent()
-            : base("name=PortalContent")
+        public PortalContext()
+            : base("name=PortalContext")
         {
         }
     
@@ -27,7 +27,7 @@ namespace Fiap.Exemplo02.MVC.Banco.Models
     
         public virtual DbSet<Aluno> Aluno { get; set; }
         public virtual DbSet<Grupo> Grupo { get; set; }
-        public virtual DbSet<Projeto> Projeto { get; set; }
         public virtual DbSet<Professor> Professor { get; set; }
+        public virtual DbSet<Projeto> Projeto { get; set; }
     }
 }

@@ -11,7 +11,7 @@ namespace Fiap.Exemplo02.MVC.Banco.UnitsOfWork
     public class UnitOfWork : IDisposable
     {
 
-        private PortalContent _context = new PortalContent();
+        private PortalContext _context = new PortalContext();
 
         private AlunoRepository _alunoRepository;
 

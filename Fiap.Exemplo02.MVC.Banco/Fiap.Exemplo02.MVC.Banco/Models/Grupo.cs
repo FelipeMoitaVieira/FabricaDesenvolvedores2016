@@ -24,8 +24,8 @@ namespace Fiap.Exemplo02.MVC.Banco.Models
         public string Nome { get; set; }
         public Nullable<double> Nota { get; set; }
     
-        public virtual Projeto Projeto { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Aluno> Aluno { get; set; }
+        public virtual Projeto Projeto { get; set; }
     }
 }

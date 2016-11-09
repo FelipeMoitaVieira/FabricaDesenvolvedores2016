@@ -10,9 +10,9 @@ namespace Fiap.Exemplo02.MVC.Banco.Repositories
 {
     public class GrupoRepository : IGrupoRepository
     {
-        private PortalContent _context;
+        private PortalContext _context;
 
-        public GrupoRepository(PortalContent context)
+        public GrupoRepository(PortalContext context)
         {
             _context = context;
         }
@@ -20,6 +20,7 @@ namespace Fiap.Exemplo02.MVC.Banco.Repositories
         public void Atualizar(Grupo grupo)
         {
             _context.Entry(grupo).State = System.Data.Entity.EntityState.Modified;
+            _context.Entry(grupo.Projeto).State = System.Data.Entity.EntityState.Modified;
         }
 
         public ICollection<Grupo> BuscarPor(Expression<Func<Grupo, bool>> filtro)

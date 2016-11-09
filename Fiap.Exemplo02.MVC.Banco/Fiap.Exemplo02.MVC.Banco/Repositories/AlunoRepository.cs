@@ -10,9 +10,9 @@ namespace Fiap.Exemplo02.MVC.Banco.Repositories
 {
     public class AlunoRepository : IAlunoRepository
     {
-        private PortalContent _context;
+        private PortalContext _context;
 
-        public AlunoRepository(PortalContent context)
+        public AlunoRepository(PortalContext context)
         {
             _context = context;
         }

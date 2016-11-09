@@ -25,7 +25,7 @@ namespace Fiap.Exemplo02.MVC.Banco.Models
         public System.DateTime DataNascimento { get; set; }
         public bool Bolsa { get; set; }
         public Nullable<double> Desconto { get; set; }
-        public int GrupoId { get; set; }
+        public Nullable<int> GrupoId { get; set; }
     
         public virtual Grupo Grupo { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

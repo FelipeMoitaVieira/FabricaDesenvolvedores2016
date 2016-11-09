@@ -1,4 +1,5 @@
 ﻿using Fiap.Exemplo02.MVC.Banco.Models;
+using Fiap.Exemplo02.MVC.Banco.UnitsOfWork;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,8 +10,8 @@ namespace Fiap.Exemplo02.MVC.Banco.Controllers
 {
     public class GrupoController : Controller
     {
-        private PortalContent _context = new PortalContent();
-
+        //private PortalContent _context = new PortalContent();
+        private UnitOfWork _unit = new UnitOfWork();
 
 
         [HttpGet]
@@ -24,8 +25,8 @@ namespace Fiap.Exemplo02.MVC.Banco.Controllers
         [HttpPost]
         public ActionResult Cadastrar(Grupo grupo)
         {
-            _context.Grupo.Add(grupo);
-            _context.SaveChanges();
+            _unit.GrupoRespository.Cadastrar(grupo);
+            _unit.Salvar();
             TempData["msg"] = "Grupo Cadastrado com Sucesso";
 
             return RedirectToAction("Cadastrar");
@@ -36,7 +37,7 @@ namespace Fiap.Exemplo02.MVC.Banco.Controllers
         [HttpGet]
         public ActionResult Listar()
         {
-            var _lista = _context.Grupo.ToList();
+            var _lista = _unit.GrupoRespository.Listar();
             return View(_lista);
         }
 
@@ -44,16 +45,15 @@ namespace Fiap.Exemplo02.MVC.Banco.Controllers
         [HttpGet]
         public ActionResult Editar(int id)
         {
-            var grupo = _context.Grupo.Find(id);
+            var grupo = _unit.GrupoRespository.BuscarPorId(id);
             return View("Editar",grupo);
         }
 
         [HttpPost]
         public ActionResult Editar(Grupo grupo)
         {
-            _context.Entry(grupo).State = System.Data.Entity.EntityState.Modified;
-            _context.Entry(grupo.Projeto).State = System.Data.Entity.EntityState.Modified;
-            _context.SaveChanges();
+            _unit.GrupoRespository.Atualizar(grupo);
+            _unit.Salvar();
             TempData["msg"] = "Grupo Atualizado com Sucesso!";
 
 
@@ -64,14 +64,18 @@ namespace Fiap.Exemplo02.MVC.Banco.Controllers
         [HttpPost]
         public ActionResult Excluir(int grupoId)
         {
-            var grupo = _context.Grupo.Find(grupoId);
-            _context.Grupo.Remove(grupo);
-            _context.SaveChanges();
+            _unit.GrupoRespository.Remover(grupoId);
+            _unit.Salvar();
             TempData["msg"] = "Grupo Excluído!";
 
 
             return RedirectToAction("Listar");
         }
 
+        protected override void Dispose(bool disposing)
+        {
+            _unit.Dispose();
+            base.Dispose(disposing);
+        }
     }
 }
