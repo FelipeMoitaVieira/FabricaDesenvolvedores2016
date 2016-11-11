@@ -13,17 +13,34 @@ namespace Fiap.Exemplo02.MVC.Banco.UnitsOfWork
 
         private PortalContext _context = new PortalContext();
 
-        private AlunoRepository _alunoRepository;
+        private IGenericRepository<Aluno> _alunoRepository;
 
-        private GrupoRepository _grupoRepository;
+        private IGenericRepository<Grupo> _grupoRepository;
 
-        public GrupoRepository GrupoRespository
+        private IGenericRepository<Professor> _professorRepository;
+
+
+
+        public IGenericRepository<Professor> ProfessorRepository
+        {
+            get
+            {
+                if(_professorRepository == null)
+                {
+                    _professorRepository = new GenericRepository<Professor>(_context);
+                }
+                return _professorRepository;
+            }
+        }
+
+
+        public IGenericRepository<Grupo> GrupoRespository
         {
             get
             {
                 if(_grupoRepository == null)
                 {
-                    _grupoRepository = new GrupoRepository(_context);
+                    _grupoRepository = new GenericRepository<Grupo>(_context);
                 }
                 return _grupoRepository;
             }
@@ -31,13 +48,13 @@ namespace Fiap.Exemplo02.MVC.Banco.UnitsOfWork
         }
 
 
-        public AlunoRepository AlunoRepository 
+        public IGenericRepository<Aluno> AlunoRepository 
         {
             get
             {
                 if(_alunoRepository == null)
                 {
-                    _alunoRepository = new AlunoRepository(_context);
+                    _alunoRepository = new GenericRepository<Aluno>(_context);
                 }
 
                 return _alunoRepository;

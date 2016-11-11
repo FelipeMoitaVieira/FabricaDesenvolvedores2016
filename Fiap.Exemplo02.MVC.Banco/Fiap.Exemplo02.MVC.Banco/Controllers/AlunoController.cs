@@ -10,8 +10,13 @@ namespace Fiap.Exemplo02.MVC.Banco.Controllers
 {
     public class AlunoController : Controller
     {
+
+        #region FIELD
         //private PortalContent _context = new PortalContent();
         private UnitOfWork _unit = new UnitOfWork();
+        #endregion
+
+        #region GET
 
         [HttpGet]
         public ActionResult Cadastrar()
@@ -21,6 +26,44 @@ namespace Fiap.Exemplo02.MVC.Banco.Controllers
             return View();
         }
 
+        [HttpGet]
+        public ActionResult Listar()
+        {
+            // include -> busca o relacionamento (preenche o grupo que o aluno possui), faz o join
+            //var lista = _context.Aluno.Include("Grupo").ToList();
+            var _lista = _unit.AlunoRepository.Listar();
+            CarregarComboGrupos();
+            return View(_lista);
+        }
+
+        [HttpGet]
+        public ActionResult Editar(int id)
+        {
+            Aluno aluno = _unit.AlunoRepository.BuscarPorId(id);
+
+            return View("Editar", aluno);
+        }
+
+        [HttpGet]
+        public ActionResult Buscar(string nomeBusca, int? idGrupo)
+        {
+            ICollection<Aluno> lista;
+            if (idGrupo == null)
+            {
+                lista = _unit.AlunoRepository.BuscarPor(a => a.Nome.Contains(nomeBusca));
+            }
+            else
+            {
+                lista = _unit.AlunoRepository.BuscarPor(a => a.Nome.Contains(nomeBusca) && a.GrupoId == idGrupo);
+            }
+
+            CarregarComboGrupos();
+
+            return View("Listar", lista);
+        }
+        #endregion
+
+        #region POST
         [HttpPost]
         public ActionResult Cadastrar(Aluno aluno)
         {
@@ -32,16 +75,6 @@ namespace Fiap.Exemplo02.MVC.Banco.Controllers
             return RedirectToAction("Cadastrar");
         }
 
-        [HttpGet]
-        public ActionResult Listar()
-        {
-            // include -> busca o relacionamento (preenche o grupo que o aluno possui), faz o join
-            //var lista = _context.Aluno.Include("Grupo").ToList();
-            var _lista = _unit.AlunoRepository.Listar();
-            return View(_lista);
-        }
-
-        
         [HttpPost]
         public ActionResult Excluir(int alunoId)
         {
@@ -50,15 +83,7 @@ namespace Fiap.Exemplo02.MVC.Banco.Controllers
             TempData["msg"] = "Aluno Excluído";
             return RedirectToAction("Listar");
         }
-
-
-        [HttpGet]
-        public ActionResult Editar(int id)
-        {
-            Aluno aluno = _unit.AlunoRepository.BuscarPorId(id);
-            
-            return View("Editar", aluno);
-        }
+                
 
         [HttpPost]
         public ActionResult Editar(Aluno aluno)
@@ -69,22 +94,28 @@ namespace Fiap.Exemplo02.MVC.Banco.Controllers
             return RedirectToAction("Listar");
         }
 
+        #endregion
 
-        [HttpGet]
-        public ActionResult Buscar(string nomeBusca)
+        #region PRIVATE
+
+        private void CarregarComboGrupos()
         {
-            var lista = _unit.AlunoRepository.BuscarPor(a => a.Nome == nomeBusca);
-            
-
-            return View("Listar",lista);
+            ViewBag.grupos = new SelectList(_unit.GrupoRespository.Listar(), "Id", "Nome");
         }
 
+        #endregion
 
+        #region DISPOSE
         protected override void Dispose(bool disposing)
         {
             _unit.Dispose();
             base.Dispose(disposing);
         }
+        #endregion
+
+
+
+
 
     }
 }
