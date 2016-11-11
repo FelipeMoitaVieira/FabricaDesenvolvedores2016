@@ -11,23 +11,25 @@ namespace Fiap.Exemplo02.MVC.Banco.UnitsOfWork
     public class UnitOfWork : IDisposable
     {
 
+        #region FIELDS
         private PortalContext _context = new PortalContext();
 
         private IGenericRepository<Aluno> _alunoRepository;
 
         private IGenericRepository<Grupo> _grupoRepository;
 
-        private IGenericRepository<Professor> _professorRepository;
+        private IProfessorRepository _professorRepository;
 
+        #endregion
 
-
-        public IGenericRepository<Professor> ProfessorRepository
+        #region GETS
+        public IProfessorRepository ProfessorRepository
         {
             get
             {
                 if(_professorRepository == null)
                 {
-                    _professorRepository = new GenericRepository<Professor>(_context);
+                    _professorRepository = new ProfessorRepository(_context);
                 }
                 return _professorRepository;
             }
@@ -62,12 +64,16 @@ namespace Fiap.Exemplo02.MVC.Banco.UnitsOfWork
             
         }
 
+        #endregion
+
+        #region SALVAR
         public void Salvar()
         {
             _context.SaveChanges();
         }
+        #endregion
 
-        
+        #region DISPOSE
         public void Dispose()
         {
             if(_context != null)
@@ -76,5 +82,6 @@ namespace Fiap.Exemplo02.MVC.Banco.UnitsOfWork
             }
             GC.SuppressFinalize(this);
         }
+        #endregion
     }
 }
