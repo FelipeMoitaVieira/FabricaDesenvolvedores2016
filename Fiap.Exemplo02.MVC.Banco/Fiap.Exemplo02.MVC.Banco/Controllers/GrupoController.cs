@@ -2,6 +2,7 @@
 using Fiap.Exemplo02.MVC.Banco.UnitsOfWork;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -46,7 +47,7 @@ namespace Fiap.Exemplo02.MVC.Banco.Controllers
         public ActionResult Editar(int id)
         {
             var grupo = _unit.GrupoRespository.BuscarPorId(id);
-            return View("Editar",grupo);
+            return View("Editar", grupo);
         }
 
         [HttpPost]
@@ -64,9 +65,21 @@ namespace Fiap.Exemplo02.MVC.Banco.Controllers
         [HttpPost]
         public ActionResult Excluir(int grupoId)
         {
-            _unit.GrupoRespository.Remover(grupoId);
-            _unit.Salvar();
-            TempData["msg"] = "Grupo Excluído!";
+            var grupo = _unit.GrupoRespository.BuscarPorId(grupoId);
+            if (grupo.Aluno.Count > 0)
+            {
+                
+                throw new Exception("Não é possível excluir Grupo e/ou Projeto. Alunos cadastradas nesse Grupo/Projeto");
+            }
+            else
+            {
+                _unit.ProjetoRepository.Remover(grupoId);
+                _unit.GrupoRespository.Remover(grupoId);
+                _unit.Salvar();
+                TempData["msg"] = "Grupo e Projeto Excluídos!";
+
+            }
+            
 
 
             return RedirectToAction("Listar");

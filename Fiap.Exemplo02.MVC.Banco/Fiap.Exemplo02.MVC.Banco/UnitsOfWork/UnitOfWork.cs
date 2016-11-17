@@ -2,6 +2,8 @@
 using Fiap.Exemplo02.MVC.Banco.Repositories;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Infrastructure;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,6 +21,8 @@ namespace Fiap.Exemplo02.MVC.Banco.UnitsOfWork
         private IGenericRepository<Grupo> _grupoRepository;
 
         private IProfessorRepository _professorRepository;
+
+        private IGenericRepository<Projeto> _projetoRepository;
 
         #endregion
 
@@ -64,12 +68,24 @@ namespace Fiap.Exemplo02.MVC.Banco.UnitsOfWork
             
         }
 
+        public IGenericRepository<Projeto> ProjetoRepository
+        {
+            get
+            {
+                if(_projetoRepository == null)
+                {
+                    _projetoRepository = new GenericRepository<Projeto>(_context);
+                }
+                return _projetoRepository;
+            }
+        }
+
         #endregion
 
         #region SALVAR
         public void Salvar()
         {
-            _context.SaveChanges();
+                _context.SaveChanges();
         }
         #endregion
 
