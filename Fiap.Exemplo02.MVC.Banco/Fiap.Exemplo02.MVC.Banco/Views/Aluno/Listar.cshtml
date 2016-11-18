@@ -1,11 +1,11 @@
-﻿@model List<Fiap.Exemplo02.MVC.Banco.Models.Aluno>
+﻿@model Fiap.Exemplo02.MVC.Banco.ViewModels.AlunoViewModel
 @{
     ViewBag.Title = "Listar";
 }
 
 <h2>Listar</h2>
 
-@Helper.Message(TempData["msg"], "alert alert-success")
+@Helper.Message(Model.Mensagem, "alert alert-success")
 
 @using (Html.BeginForm("Buscar","Aluno",FormMethod.Get, new {@class="form-inline" }))
 {
@@ -14,11 +14,11 @@
         
         <div class="col-md-3">
             @Html.Label("Nome")
-            @Html.TextBox("nomeBusca", "", new { @class = "form-control" })
+            @Html.TextBoxFor(a => a.NomeBusca, new { @class = "form-control" })
         </div>
         <div class="col-md-3">
             @Html.Label("Grupo")
-            @Html.DropDownList("idGrupo", ViewBag.grupos as SelectList, "Selecione", new { @class = "form-control" })
+            @Html.DropDownListFor(a => a.IdGrupo, Model.ListaGrupo, "Selecione", new { @class = "form-control" })
         </div>
         <div class="col-md-3">
             @Helper.Submit("Filtrar", "btn btn-primary")
@@ -40,7 +40,7 @@
     </thead>
     <tbody>
 
-        @foreach (var aluno in Model)
+        @foreach (var aluno in Model.Alunos)
 
 
         {
@@ -56,9 +56,6 @@
                     </button>
                     @Html.ActionLink("Editar","Editar",new { id = @aluno.Id }, new { @class = "btn btn-warning" })
                 </td>
-                
-               
-
             </tr>
         }
 

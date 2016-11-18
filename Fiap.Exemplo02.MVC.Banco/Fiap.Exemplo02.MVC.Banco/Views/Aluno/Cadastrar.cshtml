@@ -1,4 +1,4 @@
-﻿@model Fiap.Exemplo02.MVC.Banco.Models.Aluno
+﻿@model Fiap.Exemplo02.MVC.Banco.ViewModels.AlunoViewModel
 @{
     ViewBag.Title = "Cadastrar";
 }
@@ -7,7 +7,7 @@
 
 
 
-@Helper.Message(TempData["msg"],"alert alert-success")
+@Helper.Message(Model.Mensagem,"alert alert-success")
 
 
 @using (Html.BeginForm())
@@ -15,10 +15,13 @@
 <div class="form-group">
     @Html.LabelFor(a => a.Nome)
     @Html.TextBoxFor(a => a.Nome, new { @class = "form-control" })
+    @Html.ValidationMessageFor(a => a.Nome)
+
 </div>
 <div class="form-group">
     @Html.LabelFor(a => a.DataNascimento)
     @Html.TextBoxFor(a => a.DataNascimento,new { @class="form-control", placeholder = "DD/MM/AAAA" })
+    @Html.ValidationMessageFor(a => a.DataNascimento)
 </div>
 <div class="form-group">
     @Html.CheckBoxFor(a => a.Bolsa, new { @class = "checkbox " })
@@ -28,10 +31,12 @@
 <div class="form-group">
     @Html.LabelFor(a => a.Desconto)
     @Html.TextBoxFor(a => a.Desconto, new { @class = "form-control" })
+    @Html.ValidationMessageFor(a => a.Desconto)
 </div>
 <div class="form-group">
-    @Html.LabelFor(a => a.Grupo)
-    @Html.DropDownListFor(a => a.GrupoId,ViewBag.grupos as SelectList, "Selecione",new { @class = "form-control" })
+    @Html.LabelFor(a => a.GrupoId)
+    @Html.DropDownListFor(a => a.GrupoId,Model.ListaGrupo, "Selecione",new { @class = "form-control" })
+    @Html.ValidationMessageFor(a => a.GrupoId)
 </div>
 
 <div class="form-group">

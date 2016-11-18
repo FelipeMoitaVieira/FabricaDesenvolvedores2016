@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 using System.Web.Mvc;
 using Fiap.Exemplo02.MVC.Banco.Models;
 using Fiap.Exemplo02.MVC.Banco.UnitsOfWork;
+using Fiap.Exemplo02.MVC.Banco.ViewModels;
 
 namespace Fiap.Exemplo02.MVC.Banco.Controllers
 {
@@ -19,61 +17,94 @@ namespace Fiap.Exemplo02.MVC.Banco.Controllers
         #region GET
 
         [HttpGet]
-        public ActionResult Cadastrar()
+        public ActionResult Cadastrar(string msg)
         {
-            var lista = _unit.GrupoRespository.Listar();
-            ViewBag.grupos = new SelectList(lista, "Id", "Nome");
-            return View();
+            var viewModel = new AlunoViewModel()
+            {
+                ListaGrupo = ListarGrupos(),
+                Mensagem = msg
+            };
+
+            return View(viewModel);
         }
+
 
         [HttpGet]
         public ActionResult Listar()
         {
             // include -> busca o relacionamento (preenche o grupo que o aluno possui), faz o join
             //var lista = _context.Aluno.Include("Grupo").ToList();
-            var _lista = _unit.AlunoRepository.Listar();
-            CarregarComboGrupos();
-            return View(_lista);
+
+
+            var alunos = new AlunoViewModel()
+            {
+                Alunos = _unit.AlunoRepository.Listar(),
+                ListaGrupo = ListarGrupos()
+
+            };
+
+            return View(alunos);
         }
 
         [HttpGet]
         public ActionResult Editar(int id)
         {
             Aluno aluno = _unit.AlunoRepository.BuscarPorId(id);
-
-            return View("Editar", aluno);
+            var viewModel = new AlunoViewModel()
+            {
+                ListaGrupo = ListarGrupos(),
+                Nome = aluno.Nome,
+                Bolsa = aluno.Bolsa,
+                Desconto = aluno.Desconto,
+                Id = aluno.Id,
+                DataNascimento = aluno.DataNascimento,
+                GrupoId = aluno.GrupoId
+            };
+            return View(viewModel);
         }
 
         [HttpGet]
         public ActionResult Buscar(string nomeBusca, int? idGrupo)
         {
-            ICollection<Aluno> lista;
-            if (idGrupo == null)
-            {
-                lista = _unit.AlunoRepository.BuscarPor(a => a.Nome.Contains(nomeBusca));
-            }
-            else
-            {
-                lista = _unit.AlunoRepository.BuscarPor(a => a.Nome.Contains(nomeBusca) && a.GrupoId == idGrupo);
-            }
 
-            CarregarComboGrupos();
+            var alunos = new AlunoViewModel()
+            {
+                Alunos = _unit.AlunoRepository.BuscarPor(a => a.Nome.Contains(nomeBusca) && (a.GrupoId == idGrupo || idGrupo == null)),
+                ListaGrupo = ListarGrupos()
+            };
 
-            return View("Listar", lista);
+            return View("Listar", alunos);
         }
         #endregion
 
         #region POST
         [HttpPost]
-        public ActionResult Cadastrar(Aluno aluno)
+        public ActionResult Cadastrar(AlunoViewModel alunoViewModel)
         {
-            
-            
-            _unit.AlunoRepository.Cadastrar(aluno);
-            _unit.Salvar();
-            TempData["msg"] = "Aluno Cadastrado";
-            return RedirectToAction("Cadastrar");
+            if (ModelState.IsValid)
+            {
+                var aluno = new Aluno()
+                {
+                    Nome = alunoViewModel.Nome,
+                    DataNascimento = alunoViewModel.DataNascimento,
+                    Id = alunoViewModel.Id,
+                    Bolsa = alunoViewModel.Bolsa,
+                    Desconto = alunoViewModel.Desconto,
+                    GrupoId = alunoViewModel.GrupoId
+                };
+
+                _unit.AlunoRepository.Cadastrar(aluno);
+                _unit.Salvar();
+
+                return RedirectToAction("Cadastrar", new { msg = "Aluno Cadastrado" });
+            }
+            else
+            {
+                alunoViewModel.ListaGrupo = ListarGrupos();
+                return View(alunoViewModel);
+            }
         }
+
 
         [HttpPost]
         public ActionResult Excluir(int alunoId)
@@ -83,7 +114,7 @@ namespace Fiap.Exemplo02.MVC.Banco.Controllers
             TempData["msg"] = "Aluno Excluído";
             return RedirectToAction("Listar");
         }
-                
+
 
         [HttpPost]
         public ActionResult Editar(Aluno aluno)
@@ -101,6 +132,12 @@ namespace Fiap.Exemplo02.MVC.Banco.Controllers
         private void CarregarComboGrupos()
         {
             ViewBag.grupos = new SelectList(_unit.GrupoRespository.Listar(), "Id", "Nome");
+        }
+
+        private SelectList ListarGrupos()
+        {
+            var lista = _unit.GrupoRespository.Listar();
+            return new SelectList(lista, "Id", "Nome");
         }
 
         #endregion

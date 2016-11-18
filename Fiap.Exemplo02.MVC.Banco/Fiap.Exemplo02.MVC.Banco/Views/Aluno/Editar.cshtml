@@ -1,4 +1,4 @@
-﻿@model  Fiap.Exemplo02.MVC.Banco.Models.Aluno
+﻿@model  Fiap.Exemplo02.MVC.Banco.ViewModels.AlunoViewModel
 @{
     ViewBag.Title = "Editar";
 }
@@ -30,6 +30,11 @@
         @Html.LabelFor(a => a.Bolsa)
         @Html.CheckBoxFor(a => a.Bolsa, new { @class="checkbox"})
 
+    </div>
+       
+    <div class="form-group">
+        @Html.LabelFor(a => a.ListaGrupo)
+        @Html.DropDownListFor(a => a.GrupoId, Model.ListaGrupo, new { @class = "form-control" })
     </div>
     <div class="form-group">
         @Helper.Submit("Atualizar","btn btn-primary")

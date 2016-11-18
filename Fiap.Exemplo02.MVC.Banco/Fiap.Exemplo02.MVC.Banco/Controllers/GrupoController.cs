@@ -1,10 +1,6 @@
 ﻿using Fiap.Exemplo02.MVC.Banco.Models;
 using Fiap.Exemplo02.MVC.Banco.UnitsOfWork;
 using System;
-using System.Collections.Generic;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace Fiap.Exemplo02.MVC.Banco.Controllers
