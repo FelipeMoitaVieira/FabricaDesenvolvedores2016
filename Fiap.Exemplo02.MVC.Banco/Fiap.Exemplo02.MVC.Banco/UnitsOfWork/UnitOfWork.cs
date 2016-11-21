@@ -1,12 +1,6 @@
 ﻿using Fiap.Exemplo02.MVC.Banco.Models;
 using Fiap.Exemplo02.MVC.Banco.Repositories;
 using System;
-using System.Collections.Generic;
-using System.Data.Entity.Infrastructure;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Fiap.Exemplo02.MVC.Banco.UnitsOfWork
 {

@@ -49,7 +49,16 @@
                 <td>@(aluno.Bolsa?"Sim":"Não")</td>
                 <td>@aluno.Desconto</td>
                 <td>@aluno.DataNascimento</td>
-                <td>@aluno.Grupo.Nome</td>
+                
+                @if(aluno.Grupo == null)
+                {
+                    <td></td>
+                }
+                else
+                {
+                    <td>aluno.Grupo.Nome</td>
+                }
+
                 <td>
                     <button onclick="alunoId.value = @aluno.Id" type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">
                         Excluir

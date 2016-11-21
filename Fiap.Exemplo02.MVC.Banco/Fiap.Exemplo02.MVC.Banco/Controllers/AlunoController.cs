@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using Fiap.Exemplo02.MVC.Banco.Models;
 using Fiap.Exemplo02.MVC.Banco.UnitsOfWork;
 using Fiap.Exemplo02.MVC.Banco.ViewModels;
@@ -30,7 +29,7 @@ namespace Fiap.Exemplo02.MVC.Banco.Controllers
 
 
         [HttpGet]
-        public ActionResult Listar()
+        public ActionResult Listar(string msg)
         {
             // include -> busca o relacionamento (preenche o grupo que o aluno possui), faz o join
             //var lista = _context.Aluno.Include("Grupo").ToList();
@@ -39,7 +38,8 @@ namespace Fiap.Exemplo02.MVC.Banco.Controllers
             var alunos = new AlunoViewModel()
             {
                 Alunos = _unit.AlunoRepository.Listar(),
-                ListaGrupo = ListarGrupos()
+                ListaGrupo = ListarGrupos(),
+                Mensagem = msg
 
             };
 
@@ -81,8 +81,8 @@ namespace Fiap.Exemplo02.MVC.Banco.Controllers
         [HttpPost]
         public ActionResult Cadastrar(AlunoViewModel alunoViewModel)
         {
-            if (ModelState.IsValid)
-            {
+            //if (ModelState.IsValid)
+           // {
                 var aluno = new Aluno()
                 {
                     Nome = alunoViewModel.Nome,
@@ -95,14 +95,14 @@ namespace Fiap.Exemplo02.MVC.Banco.Controllers
 
                 _unit.AlunoRepository.Cadastrar(aluno);
                 _unit.Salvar();
-
+            
                 return RedirectToAction("Cadastrar", new { msg = "Aluno Cadastrado" });
-            }
-            else
-            {
-                alunoViewModel.ListaGrupo = ListarGrupos();
-                return View(alunoViewModel);
-            }
+            //}
+          //  else
+           // {
+         //       alunoViewModel.ListaGrupo = ListarGrupos();
+          //      return View(alunoViewModel);
+          //  }
         }
 
 
@@ -111,8 +111,8 @@ namespace Fiap.Exemplo02.MVC.Banco.Controllers
         {
             _unit.AlunoRepository.Remover(alunoId);
             _unit.Salvar();
-            TempData["msg"] = "Aluno Excluído";
-            return RedirectToAction("Listar");
+            
+            return RedirectToAction("Listar", new { msg = "Aluno Excluído" });
         }
 
 
@@ -121,18 +121,12 @@ namespace Fiap.Exemplo02.MVC.Banco.Controllers
         {
             _unit.AlunoRepository.Atualizar(aluno);
             _unit.Salvar();
-            TempData["msg"] = "Aluno Atualizado";
-            return RedirectToAction("Listar");
+            return RedirectToAction("Listar", new { msg = "Aluno Atualizado" });
         }
 
         #endregion
 
         #region PRIVATE
-
-        private void CarregarComboGrupos()
-        {
-            ViewBag.grupos = new SelectList(_unit.GrupoRespository.Listar(), "Id", "Nome");
-        }
 
         private SelectList ListarGrupos()
         {
