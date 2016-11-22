@@ -20,7 +20,7 @@
 </div>
 <div class="form-group">
     @Html.LabelFor(a => a.DataNascimento)
-    @Html.TextBoxFor(a => a.DataNascimento,new { @class="form-control", placeholder = "DD/MM/AAAA" })
+    @Html.TextBoxFor(a => a.DataNascimento,"{0:dd/MM/yyyy}",new { @class="form-control", placeholder = "DD/MM/AAAA" })
     @Html.ValidationMessageFor(a => a.DataNascimento)
 </div>
 <div class="form-inline ">
@@ -28,7 +28,7 @@
     @Html.LabelFor(a => a.Bolsa)
     
 </div>
-<div class="form-group">
+<div class="form-group" hidden>
     @Html.LabelFor(a => a.Desconto)
     @Html.TextBoxFor(a => a.Desconto, new { @class = "form-control" })
     @Html.ValidationMessageFor(a => a.Desconto)
@@ -44,3 +44,16 @@
 </div>
 
 }
+
+@section scripts{
+    <script>
+        $().ready(function () {
+            $("#Bolsa").click(function () {
+                $("#Desconto").parent().toggle();
+                $("#Desconto").focus();
+            });
+
+            $("#DataNascimento").datepicker();
+        });
+    </script>    
+    }

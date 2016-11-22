@@ -2,6 +2,7 @@
 using Fiap.Exemplo02.MVC.Banco.Models;
 using Fiap.Exemplo02.MVC.Banco.UnitsOfWork;
 using Fiap.Exemplo02.MVC.Banco.ViewModels;
+using System;
 
 namespace Fiap.Exemplo02.MVC.Banco.Controllers
 {
@@ -21,7 +22,8 @@ namespace Fiap.Exemplo02.MVC.Banco.Controllers
             var viewModel = new AlunoViewModel()
             {
                 ListaGrupo = ListarGrupos(),
-                Mensagem = msg
+                Mensagem = msg,
+                DataNascimento = DateTime.Now
             };
 
             return View(viewModel);
@@ -67,13 +69,11 @@ namespace Fiap.Exemplo02.MVC.Banco.Controllers
         public ActionResult Buscar(string nomeBusca, int? idGrupo)
         {
 
-            var alunos = new AlunoViewModel()
-            {
-                Alunos = _unit.AlunoRepository.BuscarPor(a => a.Nome.Contains(nomeBusca) && (a.GrupoId == idGrupo || idGrupo == null)),
-                ListaGrupo = ListarGrupos()
-            };
+            var lista = _unit.AlunoRepository.BuscarPor(a => a.Nome.Contains(nomeBusca) && 
+            (a.GrupoId == idGrupo || idGrupo == null));
+            
 
-            return View("Listar", alunos);
+            return PartialView("_tabela", lista);
         }
         #endregion
 
@@ -81,8 +81,8 @@ namespace Fiap.Exemplo02.MVC.Banco.Controllers
         [HttpPost]
         public ActionResult Cadastrar(AlunoViewModel alunoViewModel)
         {
-            //if (ModelState.IsValid)
-           // {
+            if (ModelState.IsValid)
+            {
                 var aluno = new Aluno()
                 {
                     Nome = alunoViewModel.Nome,
@@ -97,12 +97,12 @@ namespace Fiap.Exemplo02.MVC.Banco.Controllers
                 _unit.Salvar();
             
                 return RedirectToAction("Cadastrar", new { msg = "Aluno Cadastrado" });
-            //}
-          //  else
-           // {
-         //       alunoViewModel.ListaGrupo = ListarGrupos();
-          //      return View(alunoViewModel);
-          //  }
+            }
+            else
+            {
+               alunoViewModel.ListaGrupo = ListarGrupos();
+                return View(alunoViewModel);
+            }
         }
 
 

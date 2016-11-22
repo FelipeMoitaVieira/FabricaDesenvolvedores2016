@@ -6,6 +6,7 @@
     <title>@ViewBag.Title - Fábrica de Desenvolvedores FIAP</title>
     <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet" />
     <script src="~/scripts/modernizr-2.8.3.js"></script>
 </head>
 <body>
@@ -43,7 +44,14 @@
     
     <script src="~/scripts/jquery-3.1.1.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
-    <script src="~/scripts/jquery.validate.min.js"></script>
+    <script src="~/scripts/jquery.validate.js"></script>
     <script src="~/scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/scripts/jquery-ui-1.12.1.js"></script>
+    <script src="~/scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="~/scripts/globalize.js"></script>
+    <script src="~/scripts/jquery.validate.globalize.min.js"></script>
+    <script src="~/scripts/cldr.js"></script>
+    <!--Área para as páginas adicionarem conteúdo-->
+    @RenderSection("scripts",false)
 </body>
 </html>

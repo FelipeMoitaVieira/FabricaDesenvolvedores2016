@@ -3,11 +3,15 @@
     ViewBag.Title = "Listar";
 }
 
+
+
+
 <h2>Listar</h2>
 
 @Helper.Message(Model.Mensagem, "alert alert-success")
 
-@using (Html.BeginForm("Buscar","Aluno",FormMethod.Get, new {@class="form-inline" }))
+@using (Ajax.BeginForm("Buscar",null,new AjaxOptions { HttpMethod = "get",UpdateTargetId ="tabela",
+    InsertionMode = InsertionMode.Replace }, new {@class="form-inline", id="formBusca" }))
 {
     <h4>Filtrar por</h4>
     <div class="row">
@@ -38,36 +42,9 @@
             <th></th>
         </tr>
     </thead>
-    <tbody>
+    <tbody id="tabela">
 
-        @foreach (var aluno in Model.Alunos)
-
-
-        {
-            <tr>
-                <td>@aluno.Nome</td>
-                <td>@(aluno.Bolsa?"Sim":"Não")</td>
-                <td>@aluno.Desconto</td>
-                <td>@aluno.DataNascimento</td>
-                
-                @if(aluno.Grupo == null)
-                {
-                    <td></td>
-                }
-                else
-                {
-                    <td>aluno.Grupo.Nome</td>
-                }
-
-                <td>
-                    <button onclick="alunoId.value = @aluno.Id" type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">
-                        Excluir
-                    </button>
-                    @Html.ActionLink("Editar","Editar",new { id = @aluno.Id }, new { @class = "btn btn-warning" })
-                </td>
-            </tr>
-        }
-
+      @Html.Partial("_tabela",Model.Alunos)
 
     </tbody>
 
@@ -98,3 +75,29 @@
         </div>
     </div>
 </div>
+
+@section scripts{
+<script>
+
+    function someBotao() {
+        $("tr").hover(function () {
+            $(this).find("button, a").css("visibility", "visible");
+        }, function () {
+            $(this).find("button, a").css("visibility", "hidden");
+        });
+    }
+
+    $().ready(function () {
+       // $("td > button, td > a").css("visibility", "hidden");
+
+        someBotao();
+
+        $("#IdGrupo").change(function () {
+            $("#formBusca").submit();
+        });
+
+       
+
+    });
+</script>
+    }
