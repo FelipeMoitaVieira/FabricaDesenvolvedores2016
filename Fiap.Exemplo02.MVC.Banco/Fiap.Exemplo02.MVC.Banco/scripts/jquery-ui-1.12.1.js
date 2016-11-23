@@ -7230,8 +7230,29 @@ function Datepicker() {
 	this._unselectableClass = "ui-datepicker-unselectable"; // The name of the unselectable cell marker class
 	this._currentClass = "ui-datepicker-current-day"; // The name of the current day marker class
 	this._dayOverClass = "ui-datepicker-days-cell-over"; // The name of the day hover marker class
-	this.regional = []; // Available regional settings, indexed by language code
-	this.regional[ "" ] = { // Default regional settings
+	this.regional = ["pt-BR"]; // Available regional settings, indexed by language code
+
+	this.regional["pt-BR"] = {
+	    closeText: "Fechar",
+	    prevText: "&lt;Anterior",
+	    nextText: "Próximo&gt;",
+	    currentText: "Hoje",
+	    monthNames: ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
+        "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"],
+	    monthNamesShort: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun",
+        "Jul", "Ago", "Set", "Out", "Nov", "Dez"],
+	    dayNames: ["Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "Sabado"],
+	    dayNamesShort: ['Dom', "Seg", "Ter", "Qua", "Qui", "Sex", "Sab"],
+	    dayNamesMin: ["Dom", 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab'],
+	    weekHeader: "Sm",
+	    dateFormat: "dd/mm/yy",
+	    firstDay: 0,
+	    isRTL: false,
+	    showMonthAfterYear: false,
+	    yearSuffix: ""
+	};
+
+	this.regional[""] = { // Default regional settings
 		closeText: "Done", // Display text for close link
 		prevText: "Prev", // Display text for previous month link
 		nextText: "Next", // Display text for next month link
@@ -7299,9 +7320,9 @@ function Datepicker() {
 		autoSize: false, // True to size the input for the date format, false to leave as is
 		disabled: false // The initial disabled state
 	};
-	$.extend( this._defaults, this.regional[ "" ] );
-	this.regional.en = $.extend( true, {}, this.regional[ "" ] );
-	this.regional[ "en-US" ] = $.extend( true, {}, this.regional.en );
+	$.extend( this._defaults, this.regional[ "pt-BR" ] );
+	this.regional.pt = $.extend( true, {}, this.regional[ "pt-BR" ] );
+	this.regional[ "pt-BR" ] = $.extend( true, {}, this.regional.pt );
 	this.dpDiv = datepicker_bindHover( $( "<div id='" + this._mainDivId + "' class='ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all'></div>" ) );
 }
 

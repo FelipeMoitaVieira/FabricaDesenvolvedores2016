@@ -36,7 +36,7 @@ namespace Fiap.Exemplo02.MVC.Banco.ViewModels
         public Nullable<double> Desconto { get; set; }
         public bool Bolsa { get; set; }
         [Display(Name ="Grupo")]
-       
+       [Required]
         public Nullable<int> GrupoId { get; set; }
        
 

@@ -23,7 +23,8 @@ namespace Fiap.Exemplo02.MVC.Banco.Controllers
             {
                 ListaGrupo = ListarGrupos(),
                 Mensagem = msg,
-                DataNascimento = DateTime.Now
+                DataNascimento = DateTime.Now,
+                Alunos = _unit.AlunoRepository.Listar()
             };
 
             return View(viewModel);
@@ -69,7 +70,7 @@ namespace Fiap.Exemplo02.MVC.Banco.Controllers
         public ActionResult Buscar(string nomeBusca, int? idGrupo)
         {
 
-            var lista = _unit.AlunoRepository.BuscarPor(a => a.Nome.Contains(nomeBusca) && 
+            var lista = _unit.AlunoRepository.BuscarPor(a => a.Nome.StartsWith(nomeBusca) && 
             (a.GrupoId == idGrupo || idGrupo == null));
             
 

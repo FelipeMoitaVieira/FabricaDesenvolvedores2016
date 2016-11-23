@@ -9,44 +9,58 @@
 
 @Helper.Message(Model.Mensagem,"alert alert-success")
 
+<section style="width:20%;float:left"">
+    @using (Html.BeginForm())
+    {
+        <div class="form-group">
+            @Html.LabelFor(a => a.Nome)
+            @Html.TextBoxFor(a => a.Nome, new { @class = "form-control" })
+            @Html.ValidationMessageFor(a => a.Nome)
 
-@using (Html.BeginForm())
-{
-<div class="form-group">
-    @Html.LabelFor(a => a.Nome)
-    @Html.TextBoxFor(a => a.Nome, new { @class = "form-control" })
-    @Html.ValidationMessageFor(a => a.Nome)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(a => a.DataNascimento)
+            @Html.TextBoxFor(a => a.DataNascimento, "{0:dd/MM/yyyy}", new { @class = "form-control", placeholder = "DD/MM/AAAA" })
+            @Html.ValidationMessageFor(a => a.DataNascimento)
+        </div>
+        <div class="form-inline ">
+            @Html.CheckBoxFor(a => a.Bolsa, new { @class = "checkbox " })
+            @Html.LabelFor(a => a.Bolsa)
 
-</div>
-<div class="form-group">
-    @Html.LabelFor(a => a.DataNascimento)
-    @Html.TextBoxFor(a => a.DataNascimento,"{0:dd/MM/yyyy}",new { @class="form-control", placeholder = "DD/MM/AAAA" })
-    @Html.ValidationMessageFor(a => a.DataNascimento)
-</div>
-<div class="form-inline ">
-    @Html.CheckBoxFor(a => a.Bolsa, new { @class = "checkbox " })
-    @Html.LabelFor(a => a.Bolsa)
-    
-</div>
-<div class="form-group" hidden>
-    @Html.LabelFor(a => a.Desconto)
-    @Html.TextBoxFor(a => a.Desconto, new { @class = "form-control" })
-    @Html.ValidationMessageFor(a => a.Desconto)
-</div>
-<div class="form-group">
-    @Html.LabelFor(a => a.GrupoId)
-    @Html.DropDownListFor(a => a.GrupoId,Model.ListaGrupo, "Selecione",new { @class = "form-control" })
-    @Html.ValidationMessageFor(a => a.GrupoId)
-</div>
+        </div>
+        <div class="form-group" hidden>
+            @Html.LabelFor(a => a.Desconto)
+            @Html.TextBoxFor(a => a.Desconto, new { @class = "form-control" })
+            @Html.ValidationMessageFor(a => a.Desconto)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(a => a.GrupoId)
+            @Html.DropDownListFor(a => a.GrupoId, Model.ListaGrupo, "Selecione", new { @class = "form-control" })
+            @Html.ValidationMessageFor(a => a.GrupoId)
+        </div>
 
-<div class="form-group">
-    <input type="submit" value="Salvar" class="btn btn-info"/>
-</div>
+        <div class="form-group">
+            <input type="submit" value="Salvar" class="btn btn-info" />
+        </div>
 
-}
+    }
+
+</section>
+
+<aside style="width:75%;float:right">
+        @Html.Partial("_listar", Model)
+</aside>
 
 @section scripts{
     <script>
+        function someBotao() {
+            $("tr").hover(function () {
+                $(this).find("button, a").css("visibility", "visible");
+            }, function () {
+                $(this).find("button, a").css("visibility", "hidden");
+            });
+        }
+
         $().ready(function () {
             $("#Bolsa").click(function () {
                 $("#Desconto").parent().toggle();
@@ -54,6 +68,18 @@
             });
 
             $("#DataNascimento").datepicker();
+
+           
+
+            someBotao();
+
+            $("#IdGrupo").change(function () {
+                $("#formBusca").submit();
+            });
+
+            $("#NomeBusca").keyup(function () {
+                $("#formBusca").submit();
+            });
         });
     </script>    
     }

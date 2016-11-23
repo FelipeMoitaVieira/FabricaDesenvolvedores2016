@@ -203,9 +203,14 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <None Include="bundleconfig.json" />
     <None Include="scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="scripts\bootstrap.js" />
     <Content Include="scripts\bootstrap.min.js" />
+    <Content Include="scripts\bundle.js" />
+    <Content Include="scripts\bundle.min.js">
+      <DependentUpon>bundle.js</DependentUpon>
+    </Content>
     <Content Include="scripts\cldr.js" />
     <Content Include="scripts\cldr\event.js" />
     <Content Include="scripts\cldr\supplemental.js" />
@@ -295,6 +300,7 @@
     <Content Include="Views\Grupo\Listar.cshtml" />
     <Content Include="Views\Grupo\Editar.cshtml" />
     <Content Include="Views\Aluno\_tabela.cshtml" />
+    <Content Include="Views\Aluno\_listar.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

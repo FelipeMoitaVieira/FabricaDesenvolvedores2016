@@ -1,0 +1,16 @@
+[
+  {
+    "outputFileName": "scripts/bundle.js",
+    "inputFiles": [
+      "scripts/jquery.validate.unobtrusive.min.js",
+      "scripts/jquery.validate.min.js",
+      "scripts/jquery.validate.globalize.min.js",
+      "scripts/jquery.unobtrusive-ajax.min.js",
+      "scripts/jquery-ui-1.12.1.min.js",
+      "scripts/jquery-3.1.1.min.js",
+      "scripts/bootstrap.min.js",
+      "scripts/modernizr-2.8.3.js",
+      "scripts/cldr.js"
+    ]
+  }
+]
