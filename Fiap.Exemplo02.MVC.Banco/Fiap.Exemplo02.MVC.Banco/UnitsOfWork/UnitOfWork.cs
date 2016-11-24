@@ -18,9 +18,13 @@ namespace Fiap.Exemplo02.MVC.Banco.UnitsOfWork
 
         private IGenericRepository<Projeto> _projetoRepository;
 
+        private IGenericRepository<Endereco> _enderecoRepository;
+
         #endregion
 
         #region GETS
+        
+
         public IProfessorRepository ProfessorRepository
         {
             get
@@ -45,6 +49,18 @@ namespace Fiap.Exemplo02.MVC.Banco.UnitsOfWork
                 return _grupoRepository;
             }
             
+        }
+
+        public IGenericRepository<Endereco> EnderecoRepository
+        {
+            get
+            {
+                if (_enderecoRepository == null)
+                {
+                    _enderecoRepository = new GenericRepository<Endereco>(_context);
+                }
+                return _enderecoRepository;
+            }
         }
 
 

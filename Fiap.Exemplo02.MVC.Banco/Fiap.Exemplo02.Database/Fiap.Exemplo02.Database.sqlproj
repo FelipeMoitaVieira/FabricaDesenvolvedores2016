@@ -64,8 +64,9 @@
     <Build Include="Projeto.sql" />
     <Build Include="Professor.sql" />
     <Build Include="ProfessorAluno.sql" />
+    <Build Include="Endereco.sql" />
   </ItemGroup>
   <ItemGroup>
-    <RefactorLog Include="Fiap.Exemplo02.Database.refactorlog" />
+    <Build Include="Fiap.Exemplo02.Database.refactorlog" />
   </ItemGroup>
 </Project>

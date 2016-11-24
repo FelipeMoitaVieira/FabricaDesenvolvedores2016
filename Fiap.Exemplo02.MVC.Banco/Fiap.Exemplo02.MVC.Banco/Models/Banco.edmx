@@ -16,6 +16,18 @@
           <Property Name="Desconto" Type="float" />
           <Property Name="GrupoId" Type="int" />
         </EntityType>
+        <EntityType Name="Endereco">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Bairro" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Cidade" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Cep" Type="varchar" MaxLength="8" Nullable="false" />
+          <Property Name="Logradouro" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="NomeEstado" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Estado" Type="varchar" MaxLength="2" Nullable="false" />
+        </EntityType>
         <EntityType Name="Grupo">
           <Key>
             <PropertyRef Name="Id" />
@@ -101,6 +113,7 @@
         </Association>
         <EntityContainer Name="FiapExemplo02MVCStoreContainer">
           <EntitySet Name="Aluno" EntityType="Self.Aluno" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Endereco" EntityType="Self.Endereco" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Grupo" EntityType="Self.Grupo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Professor" EntityType="Self.Professor" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProfessorAluno" EntityType="Self.ProfessorAluno" Schema="dbo" store:Type="Tables" />
@@ -143,6 +156,7 @@
             <End Role="Aluno" EntitySet="Aluno" />
             <End Role="Professor" EntitySet="Professor" />
           </AssociationSet>
+          <EntitySet Name="Endereco" EntityType="Fiap.Exemplo02.MVC.Endereco" />
         </EntityContainer>
         <EntityType Name="Aluno">
           <Key>
@@ -216,6 +230,18 @@
           <End Type="Fiap.Exemplo02.MVC.Aluno" Role="Aluno" Multiplicity="*" />
           <End Type="Fiap.Exemplo02.MVC.Professor" Role="Professor" Multiplicity="*" />
         </Association>
+        <EntityType Name="Endereco">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Bairro" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Cidade" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Cep" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="Logradouro" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="NomeEstado" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Estado" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -272,6 +298,19 @@
               <ScalarProperty Name="Id" ColumnName="AlunoId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="Endereco">
+            <EntityTypeMapping TypeName="Fiap.Exemplo02.MVC.Endereco">
+              <MappingFragment StoreEntitySet="Endereco">
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="NomeEstado" ColumnName="NomeEstado" />
+                <ScalarProperty Name="Logradouro" ColumnName="Logradouro" />
+                <ScalarProperty Name="Cep" ColumnName="Cep" />
+                <ScalarProperty Name="Cidade" ColumnName="Cidade" />
+                <ScalarProperty Name="Bairro" ColumnName="Bairro" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

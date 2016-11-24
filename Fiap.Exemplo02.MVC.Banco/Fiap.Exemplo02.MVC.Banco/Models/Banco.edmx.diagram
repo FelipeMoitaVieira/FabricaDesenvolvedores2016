@@ -12,6 +12,7 @@
         <AssociationConnector Association="Fiap.Exemplo02.MVC.FK_Aluno_Grupo" />
         <AssociationConnector Association="Fiap.Exemplo02.MVC.FK_Projeto_Grupo" />
         <AssociationConnector Association="Fiap.Exemplo02.MVC.ProfessorAluno" />
+        <EntityTypeShape EntityType="Fiap.Exemplo02.MVC.Endereco" Width="1.5" PointX="5.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
