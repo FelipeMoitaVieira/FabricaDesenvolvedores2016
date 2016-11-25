@@ -6,5 +6,5 @@
     [Bolsa] BIT NOT NULL, 
     [Desconto] FLOAT NULL, 
     [GrupoId] INT NOT NULL, 
-    CONSTRAINT [FK_Aluno_Grupo] FOREIGN KEY ([GrupoId]) REFERENCES [Grupo]([Id])
+    CONSTRAINT [FK_Aluno_Grupo] FOREIGN KEY ([GrupoId]) REFERENCES [dbo].[Grupo]([Id])
 )

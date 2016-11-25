@@ -6,5 +6,5 @@
     [DataInicio] DATETIME2 NOT NULL, 
     [DataTermino] DATETIME2 NULL, 
     [Entregue] BIT NOT NULL, 
-    CONSTRAINT [FK_Projeto_Grupo] FOREIGN KEY ([Id]) REFERENCES [Grupo]([Id])
+    CONSTRAINT [FK_Projeto_Grupo] FOREIGN KEY ([Id]) REFERENCES [dbo].[Grupo]([Id])
 )
