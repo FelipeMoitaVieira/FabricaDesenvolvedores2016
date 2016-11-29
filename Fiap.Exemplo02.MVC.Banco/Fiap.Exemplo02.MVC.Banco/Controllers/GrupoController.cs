@@ -1,4 +1,4 @@
-﻿using Fiap.Exemplo02.MVC.Banco.Models;
+﻿using Fiap.Exemplo02.Dominio.Models;
 using Fiap.Exemplo02.MVC.Banco.UnitsOfWork;
 using System;
 using System.Web.Mvc;

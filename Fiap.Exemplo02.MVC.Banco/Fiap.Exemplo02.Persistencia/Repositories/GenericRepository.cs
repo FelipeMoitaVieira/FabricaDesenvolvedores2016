@@ -1,4 +1,4 @@
-﻿using Fiap.Exemplo02.MVC.Banco.Models;
+﻿using Fiap.Exemplo02.Dominio.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;

@@ -7,20 +7,19 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Fiap.Exemplo02.MVC.Banco.Models
+namespace Fiap.Exemplo02.Dominio.Models
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Projeto
+    public partial class Endereco
     {
         public int Id { get; set; }
-        public string Nome { get; set; }
-        public string Descricao { get; set; }
-        public System.DateTime DataInicio { get; set; }
-        public Nullable<System.DateTime> DataTermino { get; set; }
-        public bool Entregue { get; set; }
-    
-        public virtual Grupo Grupo { get; set; }
+        public string Bairro { get; set; }
+        public string Cidade { get; set; }
+        public string Cep { get; set; }
+        public string Logradouro { get; set; }
+        public string NomeEstado { get; set; }
+        public string Estado { get; set; }
     }
 }

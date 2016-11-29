@@ -1,5 +1,5 @@
 ﻿using System.Web.Mvc;
-using Fiap.Exemplo02.MVC.Banco.Models;
+using Fiap.Exemplo02.Dominio.Models;
 using Fiap.Exemplo02.MVC.Banco.UnitsOfWork;
 using Fiap.Exemplo02.MVC.Banco.ViewModels;
 using System;
