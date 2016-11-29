@@ -69,7 +69,21 @@
 
             $("#DataNascimento").datepicker();
 
-           
+            $("#Nome").blur(function () {
+                $.ajax({
+                    url: "http://localhost:63190/Aluno/ValidarNome",
+                    type: "GET",
+                    data: { nome: $("#Nome").val() },
+                    success: function (data) {
+                        if (data.existe) {
+                            
+                            var erro = $("span[data-valmsg-for=Nome]");
+                            erro.addClass("field-validation-error").removeClass("field-validation-valid");
+                            erro.html("<span>Nome Já Cadastrado</span>").css({"color":"red"});
+                        } 
+                    }
+                });
+            });
 
             someBotao();
 

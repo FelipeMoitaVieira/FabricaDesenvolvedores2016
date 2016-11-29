@@ -3,6 +3,7 @@ using Fiap.Exemplo02.MVC.Banco.Models;
 using Fiap.Exemplo02.MVC.Banco.UnitsOfWork;
 using Fiap.Exemplo02.MVC.Banco.ViewModels;
 using System;
+using System.Linq;
 
 namespace Fiap.Exemplo02.MVC.Banco.Controllers
 {
@@ -15,6 +16,13 @@ namespace Fiap.Exemplo02.MVC.Banco.Controllers
         #endregion
 
         #region GET
+        [HttpGet]
+        public ActionResult ValidarNome(string nome) 
+        {
+            var aluno = _unit.AlunoRepository.BuscarPor(a => a.Nome == nome);
+            return Json(new { existe = aluno.Any() }, JsonRequestBehavior.AllowGet);
+        }
+
 
         [HttpGet]
         public ActionResult Cadastrar(string msg)

@@ -58,7 +58,17 @@
                 $("#NomeEstado").val(data.estado_info.nome);
                 $("#Estado").val(data.estado);
             });
-    
+            //$.ajax({
+            //    url: "http://api.postmon.com.br/v1/cep/" + $("#Cep").val(),
+            //    method: "GET",
+            //    success: function (data) {
+            //        $("#Logradouro").val(data.logradouro);
+            //        $("#Bairro").val(data.bairro);
+            //        $("#Cidade").val(data.cidade);
+            //        $("#NomeEstado").val(data.estado_info.nome);
+            //        $("#Estado").val(data.estado);
+            //    }
+            //});
         });
     });
 </script>
