@@ -20,6 +20,8 @@ namespace Fiap.Exemplo02.Service
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+
+            config.EnableCors();
         }
     }
 }

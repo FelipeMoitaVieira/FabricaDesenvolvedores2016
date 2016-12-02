@@ -3,9 +3,12 @@ using Fiap.Exemplo02.MVC.Banco.UnitsOfWork;
 using System;
 using System.Collections.Generic;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace Fiap.Exemplo02.Service.Controllers
 {
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
+
     public class AlunoController : ApiController
 
     {
@@ -41,11 +44,11 @@ namespace Fiap.Exemplo02.Service.Controllers
             }
         }
 
-        public IHttpActionResult Put(string nome, Aluno aluno)
+        public IHttpActionResult Put(int id, Aluno aluno)
         {
             if (ModelState.IsValid)
             {
-                aluno.Nome = nome;
+                aluno.Id = id;
                 _unity.AlunoRepository.Atualizar(aluno);
                 _unity.Salvar();
                 return Ok(aluno);
