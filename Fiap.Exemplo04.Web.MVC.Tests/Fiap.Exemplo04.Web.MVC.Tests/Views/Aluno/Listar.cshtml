@@ -1,0 +1,116 @@
+﻿
+@{
+    ViewBag.Title = "Listar";
+}
+
+<h2>Listar</h2>
+
+<form action="/Aluno/Cadastrar" method="post" id="forme" name="forme">
+    <div class="form-group">
+        <label for="Nome">Nome</label>
+        <input class="form-control" id="Nome" name="Nome" type="text" value="" />
+    </div>
+    <div class="form-group">
+        <label for="DataNascimento">Data de Nascimento</label>
+        <input class="form-control" id="DataNascimento" name="DataNascimento" placeholder="DD/MM/AAAA" type="text"  />
+    </div>
+    <div class="form-inline ">
+        <input class="checkbox " id="Bolsa" name="Bolsa" type="checkbox" value="true" />
+        <input name="Bolsa" type="hidden" value="false" />
+        <label for="Bolsa">Bolsa</label>
+
+    </div>
+    <div class="form-group" >
+        <label for="Desconto">Desconto</label>
+        <input class="form-control" id="Desconto" name="Desconto" type="text" value="" />
+    </div>
+    <div class="form-group">
+        <label for="GrupoId">Grupo</label>
+        <select class="form-control" data-val="true" data-val-number="The field Grupo must be a number." data-val-required="O campo Grupo é obrigatório." id="GrupoId" name="GrupoId">
+            <option value="">Selecione</option>
+            <option value="2004">Grupo 1</option>
+            <option value="2005">Grupo 2</option>
+        </select>
+        
+    </div>
+    <div class="form-group">
+        <input type="button" id="salvar" name="salvar" value="Salvar" class="btn btn-info" />
+    </div>
+</form>
+
+
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Bolsista</th>
+            <th>Desconto</th>
+            <th>Data de Nascimento</th>
+            <th>Grupo</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+
+@section scripts
+{
+    <script>
+        function limpaCampos() {
+            $("#Nome").val("");
+            $("#Bolsa").val("");
+            $("#Desconto").val("");
+            $("#DataNascimento").val("");
+            $("#GrupoId").val("");
+           
+        }
+
+        $("#salvar").click(function () {
+            
+            $.ajax({
+                url: "http://localhost:63190/api/aluno",
+                method: "POST",
+                dataType: "json",
+                data: {
+                    Nome: $("#Nome").val(),
+                    Bolsa: $("#Bolsa").val(),
+                    Desconto: $("#Desconto").val(),
+                    DataNascimento: $("#DataNascimento").val(),
+                    GrupoId: $("#GrupoId").val()
+
+                },
+                success: function (data) {
+                    listar();
+                },
+                error: function (data, statusString, xhr) {
+                    alert("Erro!");
+                }
+            }).done(limpaCampos);
+        });
+
+
+        function listar() {
+            $.ajax({
+                url: "http://localhost:63190/api/aluno",
+                method: "GET",
+                success: function (data) {
+                    $("tbody").empty();
+                    $.each(data, function (index, item) {
+                        //Criar uma nova linha
+                        var linha = $("<tr>");
+                        linha.append($("<td>").text(item.Nome));
+                        linha.append($("<td>").text(item.Bolsa));
+                        linha.append($("<td>").text(item.Desconto));
+                        linha.append($("<td>").text(item.DataNascimento));
+                        linha.append($("<td>").text(item.GrupoId));
+
+                        $("tbody").append(linha);
+                    });
+                }
+            });
+        }
+
+        $().ready(listar());
+    </script>
+}

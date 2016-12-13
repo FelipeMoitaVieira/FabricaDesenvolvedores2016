@@ -103,8 +103,17 @@ namespace Fiap.Exemplo02.MVC.Banco.Controllers
                 };
 
                 _unit.AlunoRepository.Cadastrar(aluno);
-                _unit.Salvar();
-            
+                try
+                {
+                    _unit.Salvar();
+                }
+                catch (Exception e)
+                {
+                    alunoViewModel.Mensagem = "Erro - " + e.Message;//Mensagem de erro!
+                    alunoViewModel.ListaGrupo = ListarGrupos();
+                    return View(alunoViewModel);
+                }
+                
                 return RedirectToAction("Cadastrar", new { msg = "Aluno Cadastrado" });
             }
             else
